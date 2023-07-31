@@ -20,16 +20,20 @@ const userSchema = new Schema(
     },
 
     // Takes in ID's from the 'Thoughts' model
-    thoughts: {
-      type: Schema.Types.ObjectId,
-      ref: "Thought"
-    },
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Thought"
+      },
+    ],
 
     // Takes in ID's from the 'User' model
-    friends: {
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    }
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
+    ],
   }
 );
 

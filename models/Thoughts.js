@@ -8,13 +8,14 @@ const thoughtSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
-      max_length: 280,
+      maxlength: 280,
+      minlength: 1,
     },
 
     // Creates a date and displays the time when each `thoughtText` was created
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
       get: (date) => timeSince(date)
     },
 
