@@ -14,7 +14,8 @@ const reactionSchema = new Schema(
     reactionBody: {
       type: String,
       required: true,
-      max_length: 280
+      maxlength: 280,
+      minlength: 1
     },
 
     // Takes in strings and is required
@@ -26,7 +27,7 @@ const reactionSchema = new Schema(
     // Creates a date and displays the time when each `reaction` was created
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
       get: (date) => timeSince(date)
     }
   }
