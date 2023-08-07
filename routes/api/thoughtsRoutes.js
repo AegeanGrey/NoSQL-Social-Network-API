@@ -4,7 +4,8 @@ const router = require('express').Router();
 const {
   getThoughts,
   getSingleThought,
-  createNewThought
+  createNewThought,
+  updateThought
 } = require('../../controllers/thoughtsController');
 
 // /api/thoughts 
@@ -13,6 +14,6 @@ router.route('/').get(getThoughts).post(createNewThought);
 
 // /api/thoughts/:thoughtId
 // Providing an existing thoughtId will present a specific users thought in JSON formatting
-router.route('/:thoughtId').get(getSingleThought);
+router.route('/:thoughtId').get(getSingleThought).put(updateThought);
 
 module.exports = router;

@@ -77,4 +77,31 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
+  // Async function to update a users existing thought
+  async updateThought(req, res) {
+
+    // Try/Catch statement which will stop running the function if an error is detected
+    try {
+
+      // Finds the associated thought with the matching userId and updates the username and/or email
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      );
+
+      // If there is no ID that matches that of the DB, then it will let the user know
+      if (!thought) {
+        res.status(404).json({ message: 'No thought with that ID can be found' });
+      }
+
+      // Responds with the updated thought within 'thought' as JSON formatting
+      res.json(thought);
+
+    // If an error is detected it will console log and return the error status in JSON formatting
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
