@@ -106,28 +106,38 @@ module.exports = {
     }
   },
 
-  // Delete a student and remove them from the course
+  // Delete a user and any associated thoughts
   async deleteUser(req, res) {
+
+    // Try/Catch statement which will stop running the function if an error is detected
     try {
+
+      // Takes the requested userId and matches it to the existing user it's associated with for deletion
       const user = await User.findOneAndRemove({ _id: req.params.userId });
 
+      // If it cannot find the matched userId within the DB then it will say so
       if (!user) {
         return res.status(404).json({ message: 'No such user exists' });
       }
 
+      // If the user has any associated thoughts then it will also delete them with the user
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
         { $pull: { _id: req.params.thoughtId } },
         { new: true }
       );
 
+      // If a user had a thought associated with them then it will say it deleted the user and all associated thoughts
       if (thought) {
         return res.status(404).json({
           message: 'User deleted, but no thoughts found',
         });
       }
-
+      
+      // If there was a user and no thoughts associated then it will just delete the user
       res.json({ message: 'User successfully deleted' });
+
+    // If an error is detected it will console log and return the error status in JSON formatting
     } catch (err) {
       console.log(err);
       res.status(500).json(err);

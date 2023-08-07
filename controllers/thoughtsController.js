@@ -104,4 +104,28 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
+  // Delete a users thought based on the thoughts id
+  async deleteThought(req, res) {
+
+    // Try/Catch statement which will stop running the function if an error is detected
+    try {
+
+      // Takes the requested thoughtId and matches it to the existing user thought it's associated with for deletion
+      const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+
+      // If it cannot find the matched thoughtId within the DB then it will say so
+      if (!thought) {
+        return res.status(404).json({ message: 'No such thought exists' });
+      }
+
+      // If there was a thought then it will confirm that it has been deleted
+      res.json({ message: 'Thought successfully deleted' });
+
+    // If an error is detected it will console log and return the error status in JSON formatting
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
 };

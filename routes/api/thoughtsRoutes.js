@@ -5,7 +5,8 @@ const {
   getThoughts,
   getSingleThought,
   createNewThought,
-  updateThought
+  updateThought,
+  deleteThought
 } = require('../../controllers/thoughtsController');
 
 // /api/thoughts 
@@ -15,6 +16,7 @@ router.route('/').get(getThoughts).post(createNewThought);
 // /api/thoughts/:thoughtId
 // Providing an existing thoughtId will present a specific users thought in JSON formatting
 // If a PUT HTTP Request is made then you can update a users existing thought
-router.route('/:thoughtId').get(getSingleThought).put(updateThought);
+// If a DELETE HTTP Request is made then you can delete an existing users thought
+router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(deleteThought);
 
 module.exports = router;
