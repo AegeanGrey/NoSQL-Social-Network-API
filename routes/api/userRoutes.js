@@ -4,7 +4,8 @@ const router = require('express').Router();
 const {
   getUsers,
   getSingleUser,
-  createNewUser
+  createNewUser,
+  updateUser
 } = require('../../controllers/userController');
 
 // /api/users 
@@ -14,6 +15,6 @@ router.route('/').get(getUsers).post(createNewUser);
 
 // /api/users/:userId
 // Providing an existing userId will present a specific users data in JSON formatting
-router.route('/:userId').get(getSingleUser);
+router.route('/:userId').get(getSingleUser).put(updateUser);
 
 module.exports = router;

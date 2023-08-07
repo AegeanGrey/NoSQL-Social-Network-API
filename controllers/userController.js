@@ -78,4 +78,31 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
+  // Async function to update an already existing user
+  async updateUser(req, res) {
+
+    // Try/Catch statement which will stop running the function if an error is detected
+    try {
+
+      // Finds the associated user with the matching userId and updates the username and/or email
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      );
+
+      // If there is no ID that matches that of the DB, then it will let the user know
+      if (!user) {
+        res.status(404).json({ message: 'No user with that ID can be found' });
+      }
+
+      // Responds with the updated user within 'user' as JSON formatting
+      res.json(user);
+
+    // If an error is detected it will console log and return the error status in JSON formatting
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
