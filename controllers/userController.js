@@ -59,12 +59,13 @@ module.exports = {
     }
   },
 
-  // 
+  // Async function to add a new user with a username and email
   async createNewUser(req, res) {
     
+    // Try/Catch statement which will stop running the function if an error is detected
     try {
 
-      // 
+      // Stores the new save data (username and email) and creates it in the body of the User model
       const user = await User.create(req.body);
 
       // Responds with the new user within 'user' as JSON formatting

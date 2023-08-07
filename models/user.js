@@ -19,7 +19,7 @@ const userSchema = new Schema(
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Invalid Email']
     },
 
-    // Takes in ID's from the 'Thoughts' model
+    // Takes in ID's from the 'Thought' model
     thoughts: [
       {
         type: Schema.Types.ObjectId,

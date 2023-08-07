@@ -20,4 +20,23 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+
+  // Async function to add a new thought with content populated in thoughtText and username
+  async createNewThought(req, res) {
+    
+    // Try/Catch statement which will stop running the function if an error is detected
+    try {
+
+      // Stores the new save data (thoughtText and username) and creates it in the body of the Thought model
+      const thought = await Thought.create(req.body);
+
+      // Responds with the new user within 'thought' as JSON formatting
+      res.json(thought);
+
+    // If an error is detected it will console log and return the error status in JSON formatting
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
 };
