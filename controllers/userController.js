@@ -121,21 +121,20 @@ module.exports = {
       }
 
       // If the user has any associated thoughts then it will also delete them with the user
-      const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
-        { $pull: { _id: req.params.thoughtId } },
+      const thought = await Thought.deleteMany(
+        { _id: { $in: user.thoughts }},
         { new: true }
       );
 
       // If a user had a thought associated with them then it will say it deleted the user and all associated thoughts
-      if (thought) {
+      if (!thought) {
         return res.status(404).json({
           message: 'User deleted, but no thoughts found',
         });
       }
       
       // If there was a user and no thoughts associated then it will just delete the user
-      res.json({ message: 'User successfully deleted' });
+      res.json({ message: 'User and their thoughts successfully deleted' });
 
     // If an error is detected it will console log and return the error status in JSON formatting
     } catch (err) {

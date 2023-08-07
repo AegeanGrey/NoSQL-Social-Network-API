@@ -15,8 +15,7 @@ const thoughtSchema = new Schema(
     // Creates a date and displays the time when each `thoughtText` was created
     createdAt: {
       type: Date,
-      default: Date.now(),
-      get: (date) => timeSince(date)
+      default: Date.now()
     },
 
     // Takes in strings and is required
@@ -27,8 +26,21 @@ const thoughtSchema = new Schema(
 
     // Takes in the schema from 'reaction.js'
     reactions: [reactionSchema]
+  },
+  {
+    toJSON: {
+        getters: true,
+        virtuals: true
+    },
+    id: false
   }
 );
+
+// Converts the contents of `createdAt` into the date it was created and stores it in a new column called `postedDate`
+thoughtSchema.virtual('postedDate').get(function() {
+    return this.createdAt.toLocaleDateString();
+});
+  
 
 // Takes thoughtSchema and converts it's contents into a model that's stored within 'Thought'
 const Thought = model('thought', thoughtSchema);
