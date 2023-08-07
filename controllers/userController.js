@@ -42,7 +42,8 @@ module.exports = {
 
       // Takes the user id from the 'User' model and stores it in 'user'
       const user = await User.findOne({ _id: req.params.userId })
-        .select('-__v');
+        .select('-__v')
+        .select('thoughts');
 
       // If there is no ID that matches that of the DB, then it will let the user know
       if (!user) {
