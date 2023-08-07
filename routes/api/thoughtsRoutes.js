@@ -14,6 +14,7 @@ router.route('/').get(getThoughts).post(createNewThought);
 
 // /api/thoughts/:thoughtId
 // Providing an existing thoughtId will present a specific users thought in JSON formatting
+// If a PUT HTTP Request is made then you can update a users existing thought
 router.route('/:thoughtId').get(getSingleThought).put(updateThought);
 
 module.exports = router;
